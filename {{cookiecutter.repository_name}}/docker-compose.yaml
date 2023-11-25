@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  app:
+    user: "${USER_ID:-1000}"
+    hostname: "${HOST_NAME:-emkademy}"
+    image: {{cookiecutter.project_slug}}
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+      args:
+        USER_NAME: "${USER_NAME:-kyuksel}"
+        USER_ID: "${USER_ID:-1000}"
+    volumes:
+      - ./:/app/
+    container_name: {{cookiecutter.project_slug}}-container
+    ports:
+      - 8888:8888
+    ipc: host
+    init: true
